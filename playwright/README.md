@@ -1,0 +1,41 @@
+# End-to-End Playwright tests
+
+This is an ongonig proof of concept to run the end-to-end tests using the Playwright framework.
+
+
+## Installation
+
+```bash
+  npm install
+```
+    
+## How to run tests
+
+Run all tests
+
+```bash
+  npx playwright test
+```
+
+Run a single test
+```bash
+  npx playwright test onboarding.spec.ts
+```
+
+Run a single test in headed mode (slower, but opens the browser for visual feedback)
+```bash
+  npx playwright test onboarding.spec.ts --headed
+```
+
+Open the test report
+```bash
+npx playwright show-report
+```
+
+See other examples on the [official documentation](https://playwright.dev/docs/running-tests)
+
+
+## Useful links
+
+- [VS Code extension](https://playwright.dev/docs/getting-started-vscode)
+- [Official documentation](https://playwright.dev)
