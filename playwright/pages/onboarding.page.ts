@@ -17,6 +17,10 @@ export class OnboardingPage {
     this.video = page.locator("video");
   }
 
+  async isLoaded() {
+    await expect(this.startButton).toBeVisible();
+  }
+
   async goThroughOnboarding() {
     await this.startButton.click();
 

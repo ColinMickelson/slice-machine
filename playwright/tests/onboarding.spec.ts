@@ -7,9 +7,11 @@ test("As a new user, I go through the whole onboarding", async ({ page }) => {
   const menu = new MenuPage(page);
 
   await page.goto("/");
-  await expect(menu.AppHeader).not.toBeVisible();
-  await expect(page).toHaveScreenshot({ fullPage: true });
 
+  await onboardingPage.isLoaded();
+  await expect(menu.AppHeader).not.toBeVisible();
+
+  await expect(page).toHaveScreenshot({ fullPage: true });
   await onboardingPage.goThroughOnboarding();
   await expect(menu.AppHeader).toBeVisible();
 
@@ -24,8 +26,9 @@ test("As a new user, I can skip the onboarding", async ({ page }) => {
   const menu = new MenuPage(page);
 
   await page.goto("/");
+
+  await onboardingPage.isLoaded();
   await expect(menu.AppHeader).not.toBeVisible();
-  await expect(page).toHaveScreenshot({ fullPage: true });
 
   await onboardingPage.skipOnboarding();
   await expect(menu.AppHeader).toBeVisible();
