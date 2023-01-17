@@ -1,7 +1,6 @@
-export class SlicePage {
-  get saveButton() {
-    return cy.contains("Save to File System");
-  }
+import { Builder } from "../Builder";
+
+export class SliceBuilder extends Builder {
   get imagePreview() {
     return cy.get("[alt='Preview image']");
   }
@@ -21,15 +20,6 @@ export class SlicePage {
   openVariationModal() {
     cy.get("[aria-label='Expand variations']").parent().click();
     cy.contains("Add new variation").click();
-    return this;
-  }
-
-  save() {
-    this.saveButton.click();
-    this.saveButton.should("be.disabled");
-    cy.contains("Models & mocks have been generated successfully").should(
-      "be.visible"
-    );
     return this;
   }
 }

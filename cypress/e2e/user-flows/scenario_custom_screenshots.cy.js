@@ -1,6 +1,6 @@
 import { ScreenshotModal } from "../../pages/slices/screenshotModal";
 import { SliceCard } from "../../pages/slices/sliceCard";
-import { SlicePage } from "../../pages/slices/slicePage";
+import { SliceBuilder } from "../../pages/slices/sliceBuilder";
 import { Menu } from "../../pages/Menu";
 
 describe("I am an existing SM user and I want to upload screenshots on variations of an existing Slice", () => {
@@ -12,7 +12,7 @@ describe("I am an existing SM user and I want to upload screenshots on variation
     library: "slices",
   };
 
-  const slicePage = new SlicePage();
+  const sliceBuilder = new SliceBuilder();
   const screenshotModal = new ScreenshotModal();
 
   const wrongScreenshot = "screenshots/preview_small.png";
@@ -27,13 +27,13 @@ describe("I am an existing SM user and I want to upload screenshots on variation
 
   beforeEach("Start from the Slice page", () => {
     cy.setSliceMachineUserContext({});
-    slicePage.goTo(slice.library, slice.name);
+    SliceBuilder.goTo(slice.library, slice.name);
   });
 
   it("Upload and replace a screenshot on the default variation", () => {
     // Upload custom screenshot on default variation
-    slicePage.imagePreview.should("not.exist");
-    slicePage.openScreenshotModal();
+    SliceBuilder.imagePreview.should("not.exist");
+    SliceBuilder.openScreenshotModal();
 
     screenshotModal
       .verifyImageIsEmpty()
@@ -42,13 +42,13 @@ describe("I am an existing SM user and I want to upload screenshots on variation
       .dragAndDropImage(defaultScreenshot)
       .verifyImageIs(defaultScreenshot)
       .close();
-    slicePage.imagePreview.isSameImageAs(defaultScreenshot);
+    SliceBuilder.imagePreview.isSameImageAs(defaultScreenshot);
 
     // Upload screenshot on variation from the Changes Page
     const missingScreenshotVariation = "Missing screenshot";
     cy.addVariationToSlice(missingScreenshotVariation);
 
-    slicePage.imagePreview.should("not.exist");
+    SliceBuilder.imagePreview.should("not.exist");
     cy.saveSliceModifications();
 
     const menu = new Menu();
@@ -77,7 +77,7 @@ describe("I am an existing SM user and I want to upload screenshots on variation
 
   it("Error displayed when non-image files are uploaded", () => {
     cy.addVariationToSlice("Error handling");
-    slicePage.openScreenshotModal();
+    SliceBuilder.openScreenshotModal();
     cy.contains("Select file").selectFile(
       {
         contents: Cypress.Buffer.from("this is not an image"),
